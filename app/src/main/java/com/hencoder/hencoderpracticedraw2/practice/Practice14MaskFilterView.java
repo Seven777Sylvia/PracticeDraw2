@@ -16,6 +16,11 @@ public class Practice14MaskFilterView extends View {
     Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
     Bitmap bitmap;
 
+    private BlurMaskFilter normalFilter;
+    private BlurMaskFilter innerFilter;
+    private BlurMaskFilter outerFilter;
+    private BlurMaskFilter solidFilter;
+
     public Practice14MaskFilterView(Context context) {
         super(context);
     }
@@ -31,6 +36,11 @@ public class Practice14MaskFilterView extends View {
     {
         setLayerType(LAYER_TYPE_SOFTWARE, null);
         bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.what_the_fuck);
+
+        normalFilter = new BlurMaskFilter(15, BlurMaskFilter.Blur.NORMAL);
+        innerFilter = new BlurMaskFilter(15, BlurMaskFilter.Blur.INNER);
+        outerFilter = new BlurMaskFilter(15, BlurMaskFilter.Blur.OUTER);
+        solidFilter = new BlurMaskFilter(15, BlurMaskFilter.Blur.SOLID);
     }
 
     @Override
@@ -40,19 +50,19 @@ public class Practice14MaskFilterView extends View {
         // 用 Paint.setMaskFilter 来设置不同的 BlurMaskFilter
 
         // 第一个：NORMAL
-        paint.setMaskFilter(new BlurMaskFilter(15, BlurMaskFilter.Blur.NORMAL));
+        paint.setMaskFilter(normalFilter);
         canvas.drawBitmap(bitmap, 100, 50, paint);
 
         // 第二个：INNER
-        paint.setMaskFilter(new BlurMaskFilter(15, BlurMaskFilter.Blur.INNER));
+        paint.setMaskFilter(innerFilter);
         canvas.drawBitmap(bitmap, bitmap.getWidth() + 200, 50, paint);
 
         // 第三个：OUTER
-        paint.setMaskFilter(new BlurMaskFilter(15, BlurMaskFilter.Blur.OUTER));
+        paint.setMaskFilter(outerFilter);
         canvas.drawBitmap(bitmap, 100, bitmap.getHeight() + 100, paint);
 
         // 第四个：SOLID
-        paint.setMaskFilter(new BlurMaskFilter(15, BlurMaskFilter.Blur.SOLID));
+        paint.setMaskFilter(solidFilter);
         canvas.drawBitmap(bitmap, bitmap.getWidth() + 200, bitmap.getHeight() + 100, paint);
     }
 }

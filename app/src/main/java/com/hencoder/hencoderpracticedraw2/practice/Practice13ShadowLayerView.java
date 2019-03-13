@@ -26,13 +26,13 @@ public class Practice13ShadowLayerView extends View {
     {
         // 使用 Paint.setShadowLayer() 设置阴影
         paint.setShadowLayer(15,0,0, Color.YELLOW);
+        paint.setTextSize(120);
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        paint.setTextSize(120);
         canvas.drawText("Hello HenCoder", 50, 200, paint);
     }
 }

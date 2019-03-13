@@ -17,6 +17,9 @@ public class Practice08XfermodeView extends View {
     Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
     Bitmap batman;
     Bitmap logo;
+    private PorterDuffXfermode srcMode;
+    private PorterDuffXfermode dstInMode;
+    private PorterDuffXfermode dstOutMode;
 
     public Practice08XfermodeView(Context context) {
         super(context);
@@ -33,6 +36,9 @@ public class Practice08XfermodeView extends View {
     {
         batman = BitmapFactory.decodeResource(getResources(), R.drawable.batman);
         logo = BitmapFactory.decodeResource(getResources(), R.drawable.batman_logo);
+        srcMode = new PorterDuffXfermode(PorterDuff.Mode.SRC);
+        dstInMode = new PorterDuffXfermode(PorterDuff.Mode.DST_IN);
+        dstOutMode = new PorterDuffXfermode(PorterDuff.Mode.DST_OUT);
     }
 
     @Override
@@ -46,21 +52,19 @@ public class Practice08XfermodeView extends View {
 
         canvas.drawBitmap(batman, 0, 0, paint);
         // 第一个：PorterDuff.Mode.SRC
-
-        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC));
+        paint.setXfermode(srcMode);
         canvas.drawBitmap(logo, 0, 0, paint);
         paint.setXfermode(null);
 
-
         canvas.drawBitmap(batman, batman.getWidth() + 100, 0, paint);
         // 第二个：PorterDuff.Mode.DST_IN
-        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.DST_IN));
+        paint.setXfermode(dstInMode);
         canvas.drawBitmap(logo, batman.getWidth() + 100, 0, paint);
         paint.setXfermode(null);
 
         canvas.drawBitmap(batman, 0, batman.getHeight() + 20, paint);
         // 第三个：PorterDuff.Mode.DST_OUT
-        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.DST_OUT));
+        paint.setXfermode(dstOutMode);
         canvas.drawBitmap(logo, 0, batman.getHeight() + 20, paint);
         paint.setXfermode(null);
 
